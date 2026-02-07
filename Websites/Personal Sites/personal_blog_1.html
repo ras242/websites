@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Roberson Sanchez – CS Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Variables */
+*,
+*::before,
+*::after { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:100%; }               /* 1rem = 16px */
+body {
+  font-family:'Roboto',system-ui,-apple-system,BlinkMacSystemFont,
+               "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.6;
+  color:#111;
+  background:#fafafa;
+}
+
+/* Colors */
+:root{
+  --clr-bg:#ffffff;
+  --clr-primary:#0066ff;      
+  --clr-primary-dark:#0052cc;
+  --clr-muted:#666;
+  --clr-card:#f6f6f6;
+  --clr-shadow:rgba(0,0,0,0.07);
+}
+
+/* Layout */
+.container{
+  max-width:960px;
+  margin:0 auto;
+  padding:0 1rem;
+}
+.flex{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.grid{
+  display:grid;
+  gap:2rem;
+}
+
+/* Text format */
+h1{
+  font-size:2.8rem;
+  font-weight:700;
+  margin-bottom:0.5rem;
+}
+h2{
+  font-size:1.75rem;
+  font-weight:600;
+  margin-top:2rem;
+}
+h3{
+  font-size:1.35rem;
+  font-weight:600;
+  margin-top:1.5rem;
+}
+p{
+  margin-top:0.8rem;
+  color:var(--clr-muted);
+}
+a{
+  color:var(--clr-primary);
+  text-decoration:none;
+}
+a:hover{
+  text-decoration:underline;
+}
+
+/* Header */
+header{
+  background:var(--clr-primary);
+  color:#fff;
+  padding:2rem 0;
+  text-align:center;
+}
+header h1{
+  font-size:2.5rem;
+  margin-bottom:0.3rem;
+}
+header p{
+  font-size:1.125rem;
+}
+
+/* Hero */
+.hero{
+  text-align:center;
+  padding:4rem 0 3rem;
+}
+.hero img{
+  width:80%;
+  max-width:500px;
+  height:auto;
+  border-radius:0.5rem;
+  box-shadow:0 2px 8px var(--clr-shadow);
+  margin:0 auto 1.5rem;
+}
+.hero p{
+  max-width:45ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* facts portion */
+.facts{
+  background:var(--clr-card);
+  padding:3rem 1rem;
+  border-radius:0.75rem;
+  box-shadow:0 2px 6px var(--clr-shadow);
+}
+.facts ul{
+  list-style:none;
+}
+.facts li{
+  margin-bottom:1rem;
+  line-height:1.5;
+}
+
+/* alert box (call to action) */
+.cta{
+  text-align:center;
+  margin:3rem 0;
+}
+.cta button{
+  background:var(--clr-primary);
+  color:#fff;
+  border:none;
+  padding:0.75rem 1.5rem;
+  border-radius:0.5rem;
+  font-weight:600;
+  transition:background .2s;
+}
+.cta button:hover{
+  background:var(--clr-primary-dark);
+}
+
+/*
+ Footer
+ */
+footer{
+  background:#fff;
+  text-align:center;
+  padding:2rem 1rem;
+  font-size:0.875rem;
+  color:var(--clr-muted);
+  border-top:1px solid #e0e0e0;
+}
+footer a{
+  color:var(--clr-primary);
+}
+</style>
+</head>
+
+<body>
+
+<!--  header  -->
+<header>
+  <h1>Roberson Sanchez</h1>
+  <p>CS Student @ Hudson County Community College</p>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <img src="portrait.img"
+       alt="Portrait of Roberson Sanchez">
+  <p>Building random little servers for fun, just cause.</p>
+</section>
+
+<!-- about -->
+<section class="container" style="margin-top:2rem;">
+  <h2>My Journey in HTML &amp; CSS</h2>
+  <p>
+    I started messing around with html this year in college, and it's pretty cool!
+    What began as a curiosity about showing information on a webpage with 
+    headings and paragraphs grew into a habit of rebuilding my personal
+    website every semester.  Now I’m a 21 year old computer‑science student
+    who can spend an entire weekend configuring a tiny home server (old laptop) just to
+    see how many services I can run on an old pentium CPU.
+  </p>
+</section>
+
+<!-- weird facts -->
+<section class="facts">
+  <h3>Strange little facts about me</h3>
+  <ul>
+    <li>I once won hide and seek when I was younger by climbing up a tree, when I was the last one standing 
+	I tried getting down and I fell and hit my head, therefore achieving a concussion</li>
+    <li>Hawaiian Pizza isn't Pizza in my eyes.</li>
+    <li>I have a collection of vintage hardware including adapters that I keep
+        in a small shoe box, even though I’ve never used them.</li>
+    <li>YouTube is a great resource to learn coding!</li>
+  </ul>
+</section>
+
+
+<div class="cta">
+  <button onclick="alert('Thanks for reading! Stay tuned for more updates.')">
+    Subscribe for updates
+  </button>
+</div>
+
+
+<footer>
+  © 2021 Roberson Sanchez. All rights reserved.
+  <a href="mailto:rsanchez1621@gmail.com">Contact me</a>
+</footer>
+
+</body>
+</html>
