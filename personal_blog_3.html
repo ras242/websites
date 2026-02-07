@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>One Semicolon, One Lesson – Blog </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* starting colors */
+:root {
+  --clr-primary:      #2c7be5;
+  --clr-primary-dark:#1a5bb8;
+  --clr-accent:       #ff9f43;
+  --clr-bg:           #fafafa;
+  --clr-bg-dark:      #1e1e1e;
+  --clr-text:         #222;
+  --clr-text-dark:    #eee;
+  --clr-muted:        #666;
+  --radius:           0.5rem;
+  --max-width:        960px;
+  --font-sans:        system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* reset */
+*,
+*::before,
+*::after { box-sizing:border-box; }
+html { font-size:100%; scroll-behavior: smooth; }
+body {
+  margin:0;
+  font-family:var(--font-sans);
+  line-height:1.6;
+  background:var(--clr-bg);
+  color:var(--clr-text);
+}
+img { max-width:100%; display:block; }
+a { color:var(--clr-primary); text-decoration:underline; }
+a:hover { color:var(--clr-primary-dark); }
+
+/* layout containers */
+.container {
+  max-width:var(--max-width);
+  margin:auto;
+  padding:1rem;
+}
+header,
+footer { text-align:center; padding:2rem 1rem; background:var(--clr-primary); color:#fff; }
+header h1 { margin:0; font-size:2.2rem; }
+header p { margin:0.3rem 0 0; font-size:1rem; opacity:0.9; }
+main { padding:2rem 1rem; }
+
+/* text format */
+h2 { margin-top:2rem; font-size:1.75rem; color:var(--clr-primary); }
+h3 { margin-top:1.5rem; font-size:1.4rem; color:var(--clr-accent); }
+h4 { margin-top:1rem; font-size:1.2rem; color:var(--clr-primary-dark); }
+p { margin:0.8rem 0; }
+ul { margin:0.5rem 0 0.5rem 1.5rem; }
+blockquote {
+  border-left:4px solid var(--clr-primary);
+  padding-left:1rem;
+  margin:2rem 0;
+  font-style:italic;
+  color:var(--clr-muted);
+}
+
+/* card */
+.card {
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:0 2px 6px rgba(0,0,0,0.07);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.card-header {
+  background:var(--clr-primary);
+  color:#fff;
+  padding:1rem;
+}
+.card-body { padding:1rem; flex:1; }
+.card-footer { padding:1rem; background:#f5f5f5; text-align:center; }
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.card-grid a { text-decoration:none; color:inherit; }
+
+/* code */
+code, pre {
+  background:#f4f4f4;
+  padding:0.25rem 0.5rem;
+  border-radius:0.25rem;
+  font-family:Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+pre {
+  overflow:auto;
+  padding:1rem;
+  border-radius:0.5rem;
+}
+code { background:#e8e8e8; }
+
+/* poppup box style */
+.alert {
+  background:rgba(255,200,200,0.2);
+  border-left:4px solid var(--clr-accent);
+  padding:1rem 1.5rem;
+  margin:2rem 0;
+  border-radius:0.5rem;
+}
+
+/* table styling */
+table {
+  width:100%;
+  border-collapse:collapse;
+  margin:2rem 0;
+  font-size:0.95rem;
+}
+th, td { padding:0.75rem 1rem; text-align:left; }
+thead { background:var(--clr-primary); color:#fff; }
+tbody tr:nth-child(even) { background:rgba(44,123,229,0.08); }
+tbody tr:hover { background:rgba(44,123,229,0.15); }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>One Semicolon, One Lesson</h1>
+  <p>How a single “;” taught me (and a fellow HCCC student) a priceless debugging habit</p>
+</header>
+
+<main>
+  <section class="card">
+    <div class="card-header">The Story (Overly exaggerated for your reading pleasure!)</div>
+    <div class="card-body">
+      <p>It was a typical day. My friend <strong>Kevin</strong> was showing me a project site he was working on for an assignment. The page looked fine in Chrome, but when he opened the site in in Firefox the layout broke – elements overlapped, some sections were gone, and the navigation bar's links refused to work.</p>
+
+      <p>We spent <strong>2 and a half hours</strong> hunting the bug. We swapped browsers, cleared caches, and even rewrote portions of the CSS. We tried every “obvious” fix: missing meta tags, wrong file permissions, but nothing worked.</p>
+
+      <p>Finally, after a coffee break and random research, I asked Kevin to paste the <em>exact</em> HTML he was serving. He opened the file in a text editor and dropped a massive chunk of code into the browser’s console (thank you so much stackoverflow). That’s when I saw it.</p>
+
+      <div class="alert">
+        <strong>There it was:</strong> a solitary semicolon (;) stuck at the end of a <code>style</code> attribute inside a <code>&lt;style&gt;</code> block.
+      </div>
+
+      <pre><code>
+&lt;style&gt;
+  .hero {
+    background: url('image.jpg') center/cover no-repeat;
+    height: 60vh;
+    /* everything looks fine until… */
+    background‑image: url('image.jpg'); 
+  }
+&lt;/style&gt;
+      </code></pre>
+
+      <p>That little semicolon turned a perfectly valid CSS rule into an <strong>invalid declaration</strong>. The browser discarded the entire rule set, which is why the hero section collapsed and the layout went crazy. Removing the semicolon fixed everything in an instant.</p>
+    </div>
+    <div class="card-footer">
+      <a href="#lesson">Read the lesson →</a>
+    </div>
+  </section>
+
+  <section id="lesson" class="card">
+    <div class="card-header">The Takeaway</div>
+    <div class="card-body">
+      <h3>Never underestimate the smallest syntax character</h3>
+      <p>What started as a “big” debugging marathon ended with a single punctuation mark. Here are the habits I now follow:</p>
+      <ul>
+        <li><strong>Validate your markup.</strong> Run the file through an HTML validator before opening it in a browser.</li>
+        <li><strong>Use the console.</strong> A quick <code>console.log(document.documentElement.innerHTML)</code> can surface hidden characters.</li>
+        <li><strong>Comment out sections.</strong> If you suspect a rule is breaking things, comment it out and see if the layout recovers.</li>
+        <li><strong>Keep a “debug‑log”.</strong> Jot down every change you try – even the “obvious” ones – so you don’t repeat work.</li>
+      </ul>
+
+      <blockquote>
+        “The difference between a working site and a broken one can be as tiny as a single character.”
+      </blockquote>
+    </div>
+    <div class="card-footer">
+      <a href="#conclusion">See the conclusion →</a>
+    </div>
+  </section>
+
+  <section id="conclusion" class="card">
+    <div class="card-header">Conclusion</div>
+    <div class="card-body">
+      <p>Kevin’s portfolio site is working well on all browsers, and he swears by the “semicolon checklist” we created together. The incident reminded me that <em>debugging is as much about patience as it is about technical knowledge.</em> One tiny typo can waste hours, but it can also teach you a lesson that lasts a career.</p>
+
+      <p>If you’ve ever spent hours on a bug that turned out to be a single character, feel free to <a href="mailto:rsanchez1621@gmail.com">drop me a line</a>. Let’s turn those marathon sessions into short, victorious sprints.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2023 Roberson Sanchez – All rights reserved.</p>
+</footer>
+
+</body>
+</html>

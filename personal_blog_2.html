@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS‑First Tricks – Blog 2</title>
+<style>
+/* color pallette */
+:root {
+  --clr-primary:      #4a90e2;
+  --clr-primary-dark:#2c5fa0;
+  --clr-accent:       #ff6f61;
+  --clr-bg:           #fafafa;
+  --clr-bg-dark:      #1e1e1e;
+  --clr-text:         #222;
+  --clr-text-dark:    #fff;
+}
+
+/* text */
+*,
+*::before,
+*::after {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+html { font-size:100%; }
+body {
+  font-family:system-ui,Arial,sans-serif;
+  line-height:1.6;
+  background:var(--clr-bg);
+  color:var(--clr-text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Layout */
+.container {
+  flex:1;
+  width:100%;
+  max-width:960px;
+  margin:auto;
+  padding:1rem;
+}
+header {
+  text-align:center;
+  margin-bottom:2rem;
+}
+h1 { font-size:2.2rem; margin-bottom:0.5rem; }
+h2 { font-size:1.6rem; margin-top:2rem; }
+p  { margin-bottom:1rem; }
+
+/* cards */
+.card {
+  background:var(--clr-bg);
+  border-radius:0.75rem;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:transform .2s,box-shadow .2s;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+.card-inner {
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform .5s;
+  transform-style:preserve-3d;
+}
+.card:hover .card-inner { transform:rotateY(180deg); }
+.card-face {
+  position:absolute;
+  backface-visibility:hidden;
+  border-radius:0.75rem;
+  padding:1.5rem;
+  text-align:center;
+}
+.card-face--front {
+  background:linear-gradient(135deg,var(--clr-primary),var(--clr-primary-dark));
+  color:#fff;
+}
+.card-face--back {
+  background:var(--clr-accent);
+  color:#111;
+  transform:rotateY(180deg);
+}
+.card-face--back p { margin:0.5rem 0 0; }
+
+/* animated text gradient */
+@keyframes marquee {
+  0%   { background-position:0 0; }
+  100% { background-position:100% 0; }
+}
+.gradient-text {
+  font-size:1.5rem;
+  background:linear-gradient(90deg,var(--clr-primary),var(--clr-accent),var(--clr-primary));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:marquee 4s linear infinite;
+}
+
+/* scroll section */
+section { scroll-snap-align:start; }
+.section-title {
+  font-size:clamp(2rem,5vw,2.5rem);
+  margin-top:3rem;
+  border-bottom:2px solid var(--clr-primary);
+  padding-bottom:0.5rem;
+  display:inline-block;
+}
+
+/* all css baby */
+.tooltip {
+  position:relative;
+}
+.tooltip::after {
+  content:attr(data-tooltip);
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%);
+  padding:0.4rem 0.6rem;
+  background:var(--clr-primary);
+  color:#fff;
+  font-size:0.875rem;
+  border-radius:0.3rem;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+}
+.tooltip:hover::after { opacity:1; }
+
+/* small darkmode thingy */
+#theme-toggle {
+  position:fixed;
+  bottom:1rem;
+  right:1rem;
+  background:var(--clr-primary);
+  color:#fff;
+  border:none;
+  padding:0.6rem 1rem;
+  border-radius:0.5rem;
+  cursor:pointer;
+  font-weight:600;
+}
+#theme-toggle:hover { background:var(--clr-primary-dark); }
+
+/* moving stripes */
+.overlay {
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.03) 25%,transparent 25%),
+    linear-gradient(225deg,rgba(255,255,255,.03) 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,rgba(255,255,255,.03) 75%),
+    linear-gradient(315deg,transparent 75%,rgba(255,255,255,.03) 75%);
+  background-size:40px 40px;
+  animation:bgMove 12s linear infinite;
+  pointer-events:none;
+  z-index:-1;
+}
+@keyframes bgMove {
+  0%   { background-position:0 0; }
+  100% { background-position:40px 40px; }
+}
+
+/* table styling */
+.table-wrapper {
+  overflow-x:auto;
+}
+table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
+  margin:1.5rem 0;
+  font-size:0.95rem;
+}
+thead {
+  background:var(--clr-primary);
+  color:#fff;
+}
+th, td {
+  padding:0.75rem 1rem;
+  text-align:left;
+}
+tbody tr:nth-child(even) { background:rgba(74,144,226,0.1); }
+tbody tr:hover { background:rgba(74,144,226,0.25); }
+tbody tr:last-child { border-bottom:none; }
+thead th { position:sticky; top:0; }
+</style>
+</head>
+
+<body>
+  <header>
+    <h1>CSS‑First Trick! – Blog 2</h1>
+    <p>Showcasing layout, interaction, and advanced selectors</p>
+  </header>
+
+  <main class="container">
+    <section>
+      <p>This entry leans heavily on pure CSS techniques.  The goal is to show how much can be given without a single line of JavaScript, except for the little dark‑mode toggle....</p>
+    </section>
+
+    <section>
+      <h2>CSS is cool</h2>
+      <p>Modern browsers give us style elements with the precision of a design tool.  Below you’ll find a card grid, an animated gradient heading, scroll‑snap sections, and a table that feels like a native component.</p>
+    </section>
+
+    <!-- Card grid -->
+    <section>
+      <h2>Feature cards</h2>
+      <div class="card-grid" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <h3>Layout</h3>
+              <p>Flexbox, Grid, and container queries</p>
+            </div>
+            <div class="card-face card-face--back">
+              <h3>Layout</h3>
+              <p>Explore nesting and minmax()</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <h3>Effects</h3>
+              <p>Hover, transition, and animation</p>
+            </div>
+            <div class="card-face card-face--back">
+              <h3>Effects</h3>
+              <p>Keyframe streaks and custom properties</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <h3>Tables</h3>
+              <p>Styling without plugins</p>
+            </div>
+            <div class="card-face card-face--back">
+              <h3>Tables</h3>
+              <p>Zebra striping, sticky header</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Table demo -->
+    <section>
+      <h2>Styled data table</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Joined</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alice</td>
+              <td>Frontend Engineer</td>
+              <td>2021</td>
+              <td>Active</td>
+            </tr>
+            <tr>
+              <td>Bob</td>
+              <td>UX Designer</td>
+              <td>2020</td>
+              <td>On leave</td>
+            </tr>
+            <tr>
+              <td>Charlie</td>
+              <td>Backend Engineer</td>
+              <td>2022</td>
+              <td>Active</td>
+            </tr>
+            <tr>
+              <td>Diana</td>
+              <td>Product Manager</td>
+              <td>2023</td>
+              <td>Active</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The table uses a sticky header, zebra striping, and a hover highlight—all with plain CSS.</p>
+    </section>
+
+    <!-- Dark mode toggle -->
+    <section style="margin-top:2rem;">
+      <button id="theme-toggle">Switch to dark mode</button>
+    </section>
+  </main>
+
+  <footer class="container" style="margin-top:auto;text-align:center;">
+    <p>&copy; 2022 Roberson Sanchez. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple dark‑mode toggle 
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+
+  <style>
+    /* Dark‑mode overrides */
+    .dark {
+      background:var(--clr-bg-dark);
+      color:var(--clr-text-dark);
+    }
+    .dark .card { background:rgba(30,30,30,0.9); }
+    .dark .card-face--front,
+    .dark .card-face--back { filter:brightness(0.9); }
+    .dark thead { background:var(--clr-primary-dark); }
+    .dark tbody tr:nth-child(even) { background:rgba(74,144,226,0.15); }
+  </style>
+</body>
+</html>
